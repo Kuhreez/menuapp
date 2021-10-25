@@ -6,7 +6,7 @@ class MenuItemTest < ActiveSupport::TestCase
       MenuItem.create!(
         name: 'Coke',
         description: 'Refreshing soda from the Coca-Cola company',
-        price: -1.00,
+        price: -1.00
       )
     end
   end
@@ -15,10 +15,10 @@ class MenuItemTest < ActiveSupport::TestCase
     restaurant = Restaurant.create(name: 'Super Cajun Seafood')
     menu1 = Menu.create(title: 'Appetizers', restaurant_id: restaurant.id)
     menu2 = Menu.create(title: 'Chef Recommendation', restaurant_id: restaurant.id)
-    item = MenuItem.create!(
+    item = MenuItem.create(
       name: 'Hush Puppies',
       description: 'Small, savoury, deep-fried round ball made from cornmeal-based batter',
-      price: 3.00,
+      price: 3.00
     )
 
     item.menus << menu1
@@ -28,5 +28,21 @@ class MenuItemTest < ActiveSupport::TestCase
     menu_ids = item.menus.pluck(:id)
     assert_includes(menu_ids, menu1.id)
     assert_includes(menu_ids, menu2.id)
+  end
+
+  test 'Menu item names are unique' do
+    item = MenuItem.create(
+      name: 'Hush Puppies',
+      description: 'Small, savoury, deep-fried round ball made from cornmeal-based batter',
+      price: 3.00
+    )
+
+    assert_raises(ActiveRecord::RecordInvalid) do
+      MenuItem.create!(
+        name: 'Hush Puppies',
+        description: 'Copy Cat Hush Puppies',
+        price: 4.00
+      )
+    end
   end
 end
