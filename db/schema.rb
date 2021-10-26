@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_010707) do
+ActiveRecord::Schema.define(version: 2021_10_26_014231) do
 
   create_table "add_ons", force: :cascade do |t|
     t.string "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_010707) do
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_side"
   end
 
   create_table "menu_menu_items", id: false, force: :cascade do |t|
@@ -39,7 +40,16 @@ ActiveRecord::Schema.define(version: 2021_10_26_010707) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "restaurant_id"
+    t.boolean "includes_side"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.json "order_items", default: []
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
