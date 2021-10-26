@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_24_210252) do
+ActiveRecord::Schema.define(version: 2021_10_26_010707) do
+
+  create_table "add_ons", force: :cascade do |t|
+    t.string "name"
+    t.integer "menu_item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_item_id"], name: "index_add_ons_on_menu_item_id"
+  end
 
   create_table "menu_items", force: :cascade do |t|
     t.string "name"
