@@ -31,7 +31,8 @@ class OrderTest < ActiveSupport::TestCase
       }]
     }].to_json
 
-    order = Order.create(restaurant_id: restaurant.id, order_items: order_items)
+    chris = Customer.create(name: 'Chris Oh')
+    order = Order.create(restaurant_id: restaurant.id, order_items: order_items, customer_id: chris.id)
 
     assert_equal(order.total_cost, 4.50)
     order_items_parsed = JSON.parse(order.order_items)
@@ -84,7 +85,8 @@ class OrderTest < ActiveSupport::TestCase
       }]
     }].to_json
 
-    order = Order.create(restaurant_id: restaurant.id, order_items: order_items)
+    chris = Customer.create(name: 'Chris Oh')
+    order = Order.create(restaurant_id: restaurant.id, order_items: order_items, customer_id: chris.id)
     # does not include the price of the salad, since it comes with the entree
     assert_equal(order.total_cost, 11.00)
   end
