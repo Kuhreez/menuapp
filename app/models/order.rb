@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :restaurant
+  belongs_to :customer
 
   def total_cost
     order_items_parsed = JSON.parse(order_items)

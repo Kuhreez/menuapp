@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_014231) do
+ActiveRecord::Schema.define(version: 2021_10_27_000540) do
 
   create_table "add_ons", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,12 @@ ActiveRecord::Schema.define(version: 2021_10_26_014231) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["menu_item_id"], name: "index_add_ons_on_menu_item_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "menu_items", force: :cascade do |t|
@@ -49,6 +55,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_014231) do
     t.json "order_items", default: []
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "customer_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
